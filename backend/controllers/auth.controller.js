@@ -1,21 +1,30 @@
 const User = require('../models/user.model');
-
-  exports.login = async (req,res) => {
-
-    const user = await User.findOne({email:email});
-
-    if(! !!user) res.send({status:"faild"})
-    res.send({status: user});
+const HttpError = require('../support/http-error');
+const jwt =require("jsonwebtoken");
+  exports.login = async (req,res,next) => {
+    const {email,password} = req.body
+    const userExist = await User.findOne({email:email});
+    if(!userExist) {
+      const error = new HttpError("email or passwrod wrong?",401);
+      return next(error)
+    }
+    const token = jwt.sign({userExist},process.env.SECRET)
+    res.send({status: "succes",
+    user: userExist,
+    token:token
+    });
     
 }
 
 
-exports.register = async (req,res) => {
+exports.register = async (req,res,next) => {
   const {email,password,first_name,last_name, role,profile_picture} = req.body
-  const newUserEmailExist = User.find({email});
+  const newUserEmailExist =await User.findOne({email});
   if (newUserEmailExist) {
-    res.send({status :"user exist"})
+    const error = new HttpError("email exist",405);
+    return next(error)
   } 
+  console.log(newUserEmailExist);
   const newUser = new User()
   newUser.email = email;
   newUser.password = password;
