@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import UseHttp from "../hooks/http-hook";
+import axios from 'axios';
 
 const Register = () => {
   const firstNameRef = useRef("");
@@ -17,9 +18,17 @@ const Register = () => {
       email,
       password,
     };
-    console.log(data);
+    // const formData = new FormData()
+    // formData.append("first_name",first_name);
+    // formData.append("email",email);
+    // formData.append("last_name",last_name);
+    // formData.append("password",password);
+    
    try {
-    const Response = await UseHttp("auth/register","POST",data,{});
+    // const Response = await axios.post("http://localhost:3000/auth/register",formData)
+    const Response = await UseHttp("auth/register","POST",data,{
+      "Content-Type": "application/json"
+    });
     console.log(Response);
    } catch (error) {
     console.error();

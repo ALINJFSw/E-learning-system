@@ -1,16 +1,28 @@
 const express = require("express");
 const app = express();
-app.use(express.json())
-const mongoose = require("mongoose");
+// app.use(express.json())
 require('dotenv').config()
+const bodyparser = require("body-parser");
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 const authRoute = require("./router/auth.route");
 const userRoute = require("./router/user.route");
 const adminRoute = require("./router/admin.route")
 const HttpError = require("./support/http-error")
 const {authMiddleware} = require("./middleware/authMiddleware");
 const { adminMiddleware } = require("./middleware/adminMiddleware");
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested,Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PATCH");
+  next();
+});
 app.use("/auth",authRoute);
-app.use("/users",authMiddleware,userRoute);
+app.use("/users",authMiddleware,userRoute); 
 app.use("/admin",authMiddleware,adminMiddleware,adminRoute);
 
 app.use((req, res, next) => {

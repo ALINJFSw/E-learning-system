@@ -26,6 +26,7 @@ const jwt =require("jsonwebtoken");
 
 exports.register = async (req,res,next) => {
   const {email,password,first_name,last_name, role,profile_picture} = req.body
+  console.log(req.body);
   const newUserEmailExist =await User.findOne({email});
   if (newUserEmailExist) {
     const error = new HttpError("email exist",405);
