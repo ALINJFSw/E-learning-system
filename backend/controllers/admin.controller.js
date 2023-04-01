@@ -4,7 +4,7 @@ const HttpError = require("../support/http-error");
 
 exports.getUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("classes");
     res.send({
       status: "succes",
       users: users,
@@ -38,3 +38,18 @@ exports.addClass = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.getWithdrawalRequest = async (req,res,next) => {
+
+    try {
+        const users = await User.find().populate("askToWithdrawClass.class");
+        const requests = users.map(user => {
+            if(user.askToWithdrawClass) return user.askToWithdrawClass
+        })
+        res.send(requests)
+    } catch (error) {
+        const err = new HttpError(error.message, 400);
+        return next(err);
+    }
+
+}
