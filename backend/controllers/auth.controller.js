@@ -8,6 +8,13 @@ const jwt =require("jsonwebtoken");
       const error = new HttpError("email or passwrod wrong?",401);
       return next(error)
     }
+    const isMatch = await userExist.matchPassword(password);
+    console.log(isMatch);
+    if(!isMatch) {
+      const error = new HttpError("email or passwrod wrong?",405);
+      return next(error)
+    }
+
     const token = jwt.sign({userExist},process.env.SECRET)
     res.send({status: "succes",
     user: userExist,
@@ -32,7 +39,7 @@ exports.register = async (req,res,next) => {
   newUser.last_name = last_name;
   if(role) newUser.role = role;
   if(profile_picture) newUser.profile_picture = profile_picture;
-  newUser.save();
+  await newUser.save();
 
   res.send({user : newUser})
 
