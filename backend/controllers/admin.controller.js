@@ -53,3 +53,33 @@ exports.getWithdrawalRequest = async (req,res,next) => {
     }
 
 }
+
+exports.accept = async(req,res,next) =>{
+
+    try {
+        const {userID,classId} = req.body;
+        const user = await User.findById(userID);
+        user.askToWithdrawClass = user.askToWithdrawClass.filter(id => id.class.toString() != classId );
+        user.classes = user.classes.filter(id => id.toString() != classId );
+        user.save()
+        res.send(user)
+        
+    } catch (error) {
+        const err = new HttpError(error.message, 400);
+        return next(err);
+    }
+}
+
+exports.decline = async(req,res,next) =>{
+    try {
+        const {userID,classId} = req.body;
+        const user = await User.findById(userID);
+        user.askToWithdrawClass = user.askToWithdrawClass.filter(id => id.class.toString() != classId );
+        user.save()
+        res.send(user)
+        
+    } catch (error) {
+        const err = new HttpError(error.message, 400);
+        return next(err);
+    }
+}
