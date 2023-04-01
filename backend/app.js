@@ -3,10 +3,12 @@ const app = express();
 app.use(express.json())
 const mongoose = require("mongoose");
 require('dotenv').config()
-const userRoute = require("./router/auth.route");
+const authRoute = require("./router/auth.route");
+const userRoute = require("./router/user.route");
 const HttpError = require("./support/http-error")
-
-app.use("/auth",userRoute);
+const {authMiddleware} = require("./middleware/authMiddleware");
+app.use("/auth",authRoute);
+app.use("/users",authMiddleware,userRoute);
 
 app.use((req, res, next) => {
     const error = new HttpError("can't find route",404);
