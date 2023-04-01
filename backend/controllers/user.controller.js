@@ -16,6 +16,8 @@ exports.addClass = async (req, res, next) => {
     if(isAddedBefore.length != 0){
         const err = new HttpError("this class is in your library ",404)
         return next(err)
+
+        
     }
     user.classes.push(classId);
 
