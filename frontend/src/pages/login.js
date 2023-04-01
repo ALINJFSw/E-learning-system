@@ -1,18 +1,44 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import UseHttp from "../hooks/http-hook";
 
 const Login = () => {
-    const  usernameRef = useRef()
+    const  emailRef = useRef()
     const  passwordRef = useRef()
-    return (
+    const navigate = useNavigate()
+    const login = async () => {
+      
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
+      const data = {
+        email,
+        password,
+      };
+  
+      
+     try {
+      const Response = await UseHttp("auth/login","POST",data,{
+        "Content-Type": "application/json"
+      });
+      if(Response.status == "succes"){
+        console.log(Response);
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+        // navigate("/")
+        }
+     } catch (error) {
+      console.error();
+     }
+    };    return (
         <div className="lgn-container">
         <div className="login-container">
           <h1 className="login-title">Login</h1>
           <div className="login-form">
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your Username" ref={usernameRef}/>
+            <label htmlFor="emaik">Email</label>
+            <input type="text" id="email" placeholder="Enter your email" ref={emailRef}/>
             <label htmlFor="password">Password</label>
             <input type="password" id="password" placeholder="Enter your Password" ref={passwordRef}/>
-            <button type="submit" className="login-button" id="login-button"  >Login</button>
+            <button onClick={login} className="login-button" id="login-button"  >Login</button>
             <div className="register-link">
               First Time User<a href="/register">Register Now</a>
             </div>

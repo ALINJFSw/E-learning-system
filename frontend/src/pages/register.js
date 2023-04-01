@@ -1,13 +1,14 @@
 import { useRef } from "react";
 import UseHttp from "../hooks/http-hook";
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate()
   const firstNameRef = useRef("");
   const lastNameRef = useRef("");
   const passwordRef = useRef("");
   const emailRef = useRef("");
-  const login = async () => {
+  const Register = async () => {
     const first_name = firstNameRef.current.value;
     const last_name = lastNameRef.current.value;
     const email = emailRef.current.value;
@@ -18,18 +19,20 @@ const Register = () => {
       email,
       password,
     };
-    // const formData = new FormData()
-    // formData.append("first_name",first_name);
-    // formData.append("email",email);
-    // formData.append("last_name",last_name);
-    // formData.append("password",password);
+
     
    try {
-    // const Response = await axios.post("http://localhost:3000/auth/register",formData)
     const Response = await UseHttp("auth/register","POST",data,{
       "Content-Type": "application/json"
     });
-    console.log(Response);
+    if(Response.status == "succes"){
+      
+      firstNameRef.current.value = "";
+      lastNameRef.current.value = "";
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+      navigate("/login")
+      }
    } catch (error) {
     console.error();
    }
@@ -61,7 +64,7 @@ const Register = () => {
             </div>
           </div>
           <div>
-            <label htmlFor="email">Choose a Username</label>
+            <label htmlFor="email">Email</label>
             <input id="email" placeholder="email" ref={emailRef} />
           </div>
           <div>
@@ -80,7 +83,7 @@ const Register = () => {
         </div> */}
 
           <button
-            onClick={login}
+            onClick={Register}
             className="register-button"
             id="register-button"
           >
