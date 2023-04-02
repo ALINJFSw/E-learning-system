@@ -21,6 +21,7 @@ a {
 
 .reg-container,
 .lgn-container {
+  margin-top: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
