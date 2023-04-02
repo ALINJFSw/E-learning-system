@@ -1,5 +1,4 @@
 const ClassCard = (props) => {
-  console.log(props.data);
   return (
     <>
       <div className="class-card">
@@ -13,7 +12,7 @@ const ClassCard = (props) => {
           <div className="add-button">
             <button
               onClick={() => {
-                props.onAdd(props.data._id);
+                props.onAdd(props.data._id,props.data.name);
               }}
             >
               Add+
@@ -23,7 +22,7 @@ const ClassCard = (props) => {
           <div className="add-button">
             <button
               onClick={() => {
-                props.onWithdraw(props.data._id);
+                props.onWithdraw(props.data._id,props.data.name);
               }}
             >Withdraw</button>
           </div>
