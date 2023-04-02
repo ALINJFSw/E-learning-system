@@ -33,8 +33,17 @@ exports.addClass = async (req, res, next) => {
 exports.getClasses = async (req, res, next) => {
   try {
     const userInfo = req.user;
-    const user = await User.findById(userInfo._id).populate("classes");
+    const user = await User.findById(userInfo._id).populate("classes").populate("classes.admin");
     res.send({ status: "succes", classes: user.classes });
+  } catch (error) {
+    const err = new HttpError(error.message, 404);
+    return next(err);
+  }
+};
+exports.getAllClasses = async (req, res, next) => {
+  try {
+    const classes = await CLass.find().populate("admin");
+    res.send({ status: "succes", classes: classes });
   } catch (error) {
     const err = new HttpError(error.message, 404);
     return next(err);

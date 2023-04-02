@@ -7,7 +7,7 @@ const NavLinks = (props) => {
   return (
     <nav className={`nav ${props.className}`}>
       <ul>
-        <li>{Auth.isLoggedIn && <NavLink to="/profile">Profile</NavLink>}</li>
+        <li>{Auth.isLoggedIn && <NavLink to="/">Home</NavLink>}</li>
         <li>{Auth.isLoggedIn && <NavLink to="/classes">classes </NavLink>}</li>
         <li>
           {Auth.isLoggedIn && (

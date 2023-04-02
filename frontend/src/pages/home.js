@@ -14,8 +14,7 @@ const Home = () => {
     }
     return (
         <>
-        <ClassList/>
-
+            <ClassList title= "Choose Your Classes"/>
            {/* <Modal message = "you have a error" title ={"class added"} onCancel ={closeModal}  show={showModal}/> */}
         </>
     )

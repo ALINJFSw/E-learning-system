@@ -23,7 +23,6 @@ const Login = () => {
         "Content-Type": "application/json"
       });
       if(Response.status == "succes"){
-        console.log(Response);
         emailRef.current.value = "";
         passwordRef.current.value = "";
         Auth.login(Response.token,Response.user)

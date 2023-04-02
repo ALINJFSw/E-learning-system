@@ -5,13 +5,14 @@ require('dotenv').config()
 const bodyparser = require("body-parser");
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+const cors = require('cors');
 const authRoute = require("./router/auth.route");
 const userRoute = require("./router/user.route");
 const adminRoute = require("./router/admin.route")
 const HttpError = require("./support/http-error")
 const {authMiddleware} = require("./middleware/authMiddleware");
 const { adminMiddleware } = require("./middleware/adminMiddleware");
-
+app.use(cors())
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

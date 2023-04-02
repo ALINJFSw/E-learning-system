@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import AuthContext from "./store/authContext";
 import Home from "./pages/home";
 import Heading from "./components/navigator/Heading";
+import ClassList from "./components/classes/class_list";
+import ClassContent from "./components/classes/class-content";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState("");
@@ -12,7 +14,6 @@ function App() {
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("data"));
-    console.log(data);
     if (data && data.token ) {
       login(data.token,data.userData)
     }
@@ -47,6 +48,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {isLoggedIn && <Route path="/classes" element={<ClassList myclasses title = "My Class"/>} />}
+        {isLoggedIn && <Route path="/content" element={<ClassContent/> }/>}
+        <Route path="*" element={<Home />} />
+
       </Routes>
     </AuthContext.Provider>
   );

@@ -4,7 +4,7 @@ const { getUsers,addClass, getWithdrawalRequest, accept } = require("../controll
 const router = express.Router()
 
 router.get("/get_users",getUsers)
-router.get("/add-class",addClass)
+router.post("/add-class",addClass)
 router.get("/get-withdraw-requests",getWithdrawalRequest);
 router.post("/accept",accept);
 

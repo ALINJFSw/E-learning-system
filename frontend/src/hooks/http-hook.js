@@ -2,7 +2,6 @@ const UseHttp = async (url, method = "GET", body = "", header = {}) => {
   let data;
   const URL = "http://localhost:3000/";
   try {
-    console.log(body);
     const Response =
       (await fetch(URL + url, {
         method: method,

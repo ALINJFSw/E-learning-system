@@ -19,12 +19,12 @@ exports.addClass = async (req, res, next) => {
   try {
     const { name } = req.body;
     const adminName = req.user._id;
-    const classExist = CLass.findOne({ name: name });
-    console.log(classExist);
-    if (classExist) {
-      const err = new HttpError("this class exist", 405);
-      return next(err);
-    }
+    const classExist = CLass.find({ name: name });
+    console.log("test",classExist);
+    // if (!!classExist) {
+    //   const err = new HttpError("this class exist", 405);
+    //   return next(err);
+    // }
     const newClass = new CLass();
     newClass.name = name;
     newClass.admin = adminName;
