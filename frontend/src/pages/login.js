@@ -1,8 +1,10 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import UseHttp from "../hooks/http-hook";
+import AuthContext from "../store/authContext";
 
 const Login = () => {
+    const Auth = useContext(AuthContext)
     const  emailRef = useRef()
     const  passwordRef = useRef()
     const navigate = useNavigate()
@@ -24,7 +26,8 @@ const Login = () => {
         console.log(Response);
         emailRef.current.value = "";
         passwordRef.current.value = "";
-        // navigate("/")
+        Auth.login(Response.token,Response.user)
+        navigate("/")
         }
      } catch (error) {
       console.error();
