@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=McLaren&display=swap");
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -7,6 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: url("./components/assets/back2.png");
   background-color: #ffde5d;
+
+  font-family: "McLaren", cursive;
 
 }
 
@@ -158,4 +162,61 @@ a {
   transform: translateX(-100%);
   opacity: 0;
   transition: all 200ms;
+}
+
+.class-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: purple;
+  color: #fff !important;
+  font-weight: 300;
+  width: 40%;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-top: 1rem;
+
+}
+
+.class-card:hover {
+  background: #fff;
+  color: #000 !important;
+  transition: 0.5s;
+}
+
+.class-card h3 {
+  font-size: 30px;
+}
+.class-card h4 {
+  font-size: 20px;
+}
+
+.class-list { 
+  margin-top: 10rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-button {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.add-button button {
+  padding: 5px 15px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.add-button button:hover {
+  border: 1px solid #000;
 }

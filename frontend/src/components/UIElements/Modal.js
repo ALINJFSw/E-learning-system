@@ -11,14 +11,14 @@ const ModalComponent = (props) => {
   <div className="modal">
     <div className="container">
          <div className="modal__header">
-            <h3>An error occured !</h3>
+            <h3>{props.title}</h3>
          </div>
          <div className="modal__content">
-                <p>{props.error} !</p>
+                <p>{props.message} !</p>
          </div>
          <div className="modal__footer">
             <div className="pro">
-            {props.info && <Button>{props.info}</Button>}
+            {/* {props.info && <Button>{props.info}</Button>} */}
             <Button onClick = {props.onCancel}>close</Button>
             </div>
 
